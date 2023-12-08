@@ -24,11 +24,11 @@ public class AggregatorService {
 
     public List<Entry> getWordsThatContainSuccessiveLettersAndStartsWith(String chars) {
 
-        List<Entry> wordsThatSStartWith = restClient.getWordsStartingWith(chars);
+        List<Entry> wordsThatStartWith = restClient.getWordsStartingWith(chars);
         List<Entry> wordsThatContainSuccessiveLetters = restClient.getWordsThatContainConsecutiveLetters();
 
         List<Entry> common = new ArrayList<>(wordsThatStartWith);
-        common.retainAll(wordsThatContainSuccessiveLetters) l;
+        common.retainAll(wordsThatContainSuccessiveLetters);
 
         return common;
     }

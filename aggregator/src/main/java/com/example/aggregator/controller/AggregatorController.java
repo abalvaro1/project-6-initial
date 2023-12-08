@@ -4,6 +4,7 @@ import com.example.aggregator.model.Entry;
 import com.example.aggregator.service.AggregatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,7 @@ public class AggregatorController {
 
     @GetMapping("/getDefinitionFor/{word}")
     public Entry getDefinitionFor(@PathVariable String word) {
+
         return this.service.getDefinitionFor(word);
     }
 
@@ -41,13 +43,13 @@ public class AggregatorController {
 
         StopWatch sw = new StopWatch();
 
-        sw.start()l;
-        List<Entry> entries = service.getWordsThatContainSuccessiveLettersAndStartsWith(chars)
+        sw.start();
+        List<Entry> entries = service.getWordsThatContainSuccessiveLettersAndStartsWith(chars);
         sw.stop();
 
         long nanoSeconds = sw.getLastTaskTimeNanos();
         String message = new StringBuilder("Retrieved entry for words containing successive letters and  starting with [")
-                .append(word)
+                .append(chars)
                 .append("] in ")
                 .append(nanoSeconds / 1000000.0)
                 .append("ms")
@@ -59,7 +61,7 @@ public class AggregatorController {
     }
     @GetMapping("/getAllPalindromes/")
     public List<Entry> getAllPalindromes(@PathVariable String word) {
-        return this.service.getAllPalindromes(word);
+        return this.service.getAllPalindromes();
     }
 
 }
